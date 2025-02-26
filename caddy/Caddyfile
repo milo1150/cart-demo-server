@@ -4,15 +4,29 @@
 }
 
 http://localhost {
-	handle_path /cart/* {
-		reverse_proxy demo-cart-service-app-1:1323
+	# Public routes (no authentication)
+	handle /user/login {
+		reverse_proxy demo-user-service-app-1:1323
 	}
 
-	handle_path /shop-product/* {
-		reverse_proxy demo-shop-product-service-app-1:1323
-	}
-
+	# Protected routes
 	handle {
-		respond "Gateway - Endpoint Not Found" 404
+		forward_auth demo-user-service-app-1:1323 {
+			uri /user/validate
+			copy_headers Authorization
+		}
+
+		handle_path /cart/* {
+			reverse_proxy demo-cart-service-app-1:1323
+		}
+
+		handle_path /shop-product/* {
+			reverse_proxy demo-shop-product-service-app-1:1323
+		}
+
+		# Catch all unmatched routes
+		handle {
+			respond "Gateway - Endpoint Not Found" 404
+		}
 	}
 }
