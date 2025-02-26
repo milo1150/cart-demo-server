@@ -1,0 +1,23 @@
+services:
+  caddy:
+    container_name: caddy-cart-demo-local
+    image: caddy:latest
+    restart: unless-stopped
+    ports:
+      - '80:80'
+      - '443:443'
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile
+      - ./site:/srv
+      - caddy_data:/data
+      - caddy_config:/config
+    networks:
+      - cart-demo
+
+volumes:
+  caddy_data:
+  caddy_config:
+
+networks:
+  cart-demo:
+    external: true

@@ -1,0 +1,18 @@
+{
+	debug
+	auto_https off # Disable automatic HTTPS for internal services
+}
+
+http://localhost {
+	handle_path /cart/* {
+		reverse_proxy demo-cart-service-app-1:1323
+	}
+
+	handle_path /shop-product/* {
+		reverse_proxy demo-shop-product-service-app-1:1323
+	}
+
+	handle {
+		respond "Gateway - Endpoint Not Found" 404
+	}
+}
