@@ -3,7 +3,7 @@
 WORKSPACE_PATH="$(cd ../../ && pwd)"
 echo "WORKSPACE_PATH = $WORKSPACE_PATH"
 
-echo "start traefik"
+echo "start caddy"
 docker-compose up -d
 
 echo "start shop-product-service"

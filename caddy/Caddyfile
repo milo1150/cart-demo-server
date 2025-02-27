@@ -1,6 +1,6 @@
 {
 	debug
-	auto_https off # Disable automatic HTTPS for internal services
+	auto_https off
 }
 
 http://localhost {
@@ -12,7 +12,7 @@ http://localhost {
 	# Protected routes
 	handle {
 		forward_auth demo-user-service-app-1:1323 {
-			uri /user/validate
+			uri /user/auth
 			copy_headers Authorization
 		}
 

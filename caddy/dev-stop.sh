@@ -3,7 +3,7 @@
 WORKSPACE_PATH="$(cd ../../ && pwd)"
 echo "WORKSPACE_PATH = $WORKSPACE_PATH"
 
-echo "stop traefik"
+echo "stop caddy"
 docker-compose down
 
 echo "stop shop-product-service"
