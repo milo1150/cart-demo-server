@@ -20,4 +20,5 @@ volumes:
 
 networks:
   cart-demo:
-    external: true
+    name: cart-demo
+    driver: bridge
