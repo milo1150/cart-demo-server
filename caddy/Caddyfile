@@ -9,6 +9,12 @@ http://localhost {
 		reverse_proxy demo-user-service-app-1:1323
 	}
 
+	# http://localhost/nats-monitor/
+	# Becareful in production
+	handle_path /nats-monitor/* {
+		reverse_proxy nats_server:8222
+	}
+
 	# Protected routes
 	handle {
 		forward_auth demo-user-service-app-1:1323 {
@@ -27,6 +33,11 @@ http://localhost {
 
 		handle_path /shop-product/* {
 			reverse_proxy demo-shop-product-service-app-1:1323
+		}
+
+		handle_path /user/* {
+			rewrite * /user{uri}
+			reverse_proxy demo-user-service-app-1:1323
 		}
 
 		# Catch all unmatched routes

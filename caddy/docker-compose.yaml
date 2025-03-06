@@ -1,6 +1,6 @@
 services:
   caddy:
-    container_name: caddy-cart-demo-local
+    container_name: caddy-gateway
     image: caddy:latest
     restart: unless-stopped
     ports:
@@ -13,6 +13,17 @@ services:
       - caddy_config:/config
     networks:
       - cart-demo
+
+  nats:
+    image: nats:latest
+    container_name: nats_server
+    ports:
+      - '4222:4222' # Client connections
+      - '8222:8222' # Monitoring UI
+      - '6222:6222' # Cluster communication
+    # -js flag for enables JetStream (NATS persistence & streaming).
+    command: ['-DV']
+    networks: ['cart-demo']
 
 volumes:
   caddy_data:
