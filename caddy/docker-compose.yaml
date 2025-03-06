@@ -17,12 +17,14 @@ services:
   nats:
     image: nats:latest
     container_name: nats_server
+    env_file:
+      - .env
     ports:
       - '4222:4222' # Client connections
       - '8222:8222' # Monitoring UI
       - '6222:6222' # Cluster communication
     # -js flag for enables JetStream (NATS persistence & streaming).
-    command: ['-DV']
+    command: ['-DV', '--auth', '${NATS_TOKEN}']
     networks: ['cart-demo']
 
 volumes:
