@@ -13,11 +13,16 @@ http://localhost {
 	handle {
 		forward_auth demo-user-service-app-1:1323 {
 			uri /user/auth
-			copy_headers Authorization
+			copy_headers Authorization X-User-Name X-User-Email X-User-Role
 		}
 
 		handle_path /cart/* {
-			reverse_proxy demo-cart-service-app-1:1323
+			reverse_proxy demo-cart-service-app-1:1323 {
+				# header_up -Authorization # if don't need token
+				header_up +X-User-Name
+				header_up +X-User-Email
+				header_up +X-User-Role
+			}
 		}
 
 		handle_path /shop-product/* {
