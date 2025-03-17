@@ -17,6 +17,7 @@ services:
   nats:
     image: nats:latest
     container_name: nats_server
+    restart: unless-stopped
     env_file:
       - .env
     ports:
@@ -27,9 +28,28 @@ services:
     command: ['-DV', '-m', '8222', '--auth', '${NATS_TOKEN}']
     networks: ['cart-demo']
 
+  pgadmin:
+    image: dpage/pgadmin4:latest
+    container_name: pgadmin
+    restart: unless-stopped
+    # enale if need if need to connect like http://127.0.0.1:5050/login?next=/browser/
+    # ports:
+    #   - '5050:80' # Exposing pgAdmin on port 5050
+    expose:
+      - 80
+    environment:
+      PGADMIN_DEFAULT_EMAIL: ${PGADMIN_DEFAULT_EMAIL}
+      PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_DEFAULT_PASSWORD}
+      SCRIPT_NAME: /pgadmin # see more info: https://www.pgadmin.org/docs/pgadmin4/8.14/container_deployment.html
+    volumes:
+      - pgadmin_data:/var/lib/pgadmin
+    networks:
+      - cart-demo
+
 volumes:
   caddy_data:
   caddy_config:
+  pgadmin_data:
 
 networks:
   cart-demo:

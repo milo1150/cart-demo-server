@@ -9,6 +9,14 @@ http://localhost {
 		reverse_proxy demo-user-service-app-1:1323
 	}
 
+	# http://localhost/pgadmin/
+	handle /pgadmin/* {
+		reverse_proxy pgadmin:80 {
+			# see more info about X-script: https://www.pgadmin.org/docs/pgadmin4/8.14/container_deployment.html
+			header_up X-Script-Name /pgadmin
+		}
+	}
+
 	# http://localhost/nats-monitor/
 	# Becareful in production
 	handle_path /nats-monitor/* {
@@ -19,9 +27,7 @@ http://localhost {
 		# uri strip_prefix /minio-monitor → Strips /minio-monitor/ before passing requests to MinIO, so MinIO still serves assets correctly.
 		# Without this, MinIO thinks it's still running at / instead of /minio-monitor/, causing it to serve incorrect paths.
 		uri strip_prefix /minio-shop-product
-		reverse_proxy minio-shop-product:9001 {
-			# header_up Host {http.reverse_proxy.upstream.hostport}
-		}
+		reverse_proxy minio-shop-product:9001
 	}
 
 	# Protected routes
