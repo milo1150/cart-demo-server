@@ -23,11 +23,14 @@ http://localhost {
 		reverse_proxy nats_server:8222
 	}
 
-	handle /minio-shop-product/* {
-		# uri strip_prefix /minio-monitor → Strips /minio-monitor/ before passing requests to MinIO, so MinIO still serves assets correctly.
-		# Without this, MinIO thinks it's still running at / instead of /minio-monitor/, causing it to serve incorrect paths.
-		uri strip_prefix /minio-shop-product
+	# MinIO Web UI: http://localhost/minio-sp/
+	handle_path /minio-sp/* {
 		reverse_proxy minio-shop-product:9001
+	}
+
+	# MinIO API 
+	handle_path /minio-sp-api/* {
+		reverse_proxy minio-shop-product:9000
 	}
 
 	# Protected routes
