@@ -6,7 +6,14 @@
 http://localhost {
 	# Public routes (no authentication)
 	handle /user/login {
-		reverse_proxy demo-user-service-app-1:1323
+		reverse_proxy demo-user-service-app-1:1323 {
+			# CORS can be handler in proxy and in user-service cors handler, just pick only one solution
+			# ensure CORS headers from upstream get passed back to client
+			# see https://caddyserver.com/docs/caddyfile/directives/reverse_proxy#headers
+			# header_down Access-Control-Allow-Origin *
+			# header_down Access-Control-Allow-Headers *
+			# header_down Access-Control-Allow-Methods *
+		}
 	}
 
 	# Development url : http://127.0.0.1:5050/pgadmin/browser/ or http://localhost/pgadmin/browser
