@@ -1,9 +1,29 @@
 {
 	debug
 	auto_https off
+	# log {
+	# 	level DEBUG
+	# 	output stdout
+	# 	format console
+	# }
 }
 
 http://localhost {
+	log default {
+		output stdout
+		format json
+	}
+
+	# handle forward_auth, make jwt middleware (user service) receive GET instead of OPTIONS method
+	@preflight method OPTIONS
+	handle @preflight {
+		header Access-Control-Allow-Origin http://localhost:3000
+		header Access-Control-Allow-Methods "GET,POST,OPTIONS"
+		header Access-Control-Allow-Headers "Authorization,Content-Type"
+		# header Access-Control-Allow-Credentials true # if cookies need
+		respond 204
+	}
+
 	# Public routes (no authentication)
 	handle /user/login {
 		reverse_proxy demo-user-service-app-1:1323 {
@@ -44,20 +64,19 @@ http://localhost {
 	handle {
 		forward_auth demo-user-service-app-1:1323 {
 			uri /user/auth
-			copy_headers Authorization X-User-Name X-User-Email X-User-Role
+			# copy_headers Authorization
 		}
 
 		handle_path /cart/* {
 			reverse_proxy demo-cart-service-app-1:1323 {
 				# header_up -Authorization # if don't need token
-				header_up +X-User-Name
-				header_up +X-User-Email
-				header_up +X-User-Role
 			}
 		}
 
 		handle_path /shop-product/* {
-			reverse_proxy demo-shop-product-service-app-1:1323
+			reverse_proxy demo-shop-product-service-app-1:1323 {
+				# header_up Authorization
+			}
 		}
 
 		handle_path /user/* {
