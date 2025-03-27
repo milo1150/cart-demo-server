@@ -64,7 +64,7 @@ http://localhost {
 	handle {
 		forward_auth demo-user-service-app-1:1323 {
 			uri /user/auth
-			# copy_headers Authorization
+			copy_headers Authorization X-User-Name X-User-Email X-User-Id X-User-Role
 		}
 
 		handle_path /cart/* {
