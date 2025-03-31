@@ -14,3 +14,6 @@ cd "$WORKSPACE_PATH/cart-service/scripts" && ./dev-stop.sh
 
 echo "stop user-service"
 cd "$WORKSPACE_PATH/user-service/scripts" && ./dev-stop.sh
+
+echo "start payment-service"
+cd "$WORKSPACE_PATH/payment-service/scripts" && ./dev-stop.sh
