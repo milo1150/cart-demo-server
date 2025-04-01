@@ -84,6 +84,10 @@ http://localhost {
 			reverse_proxy demo-user-service-app-1:1323
 		}
 
+		handle_path /payment/* {
+			reverse_proxy demo-payment-service-app-1:1323
+		}
+
 		# Catch all unmatched routes
 		handle {
 			respond "Gateway - Endpoint Not Found" 404
