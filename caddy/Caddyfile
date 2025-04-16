@@ -17,7 +17,7 @@
 	# handle forward_auth, make jwt middleware (user service) receive GET instead of OPTIONS method
 	@preflight method OPTIONS
 	handle @preflight {
-		header Access-Control-Allow-Origin http://localhost:3000
+		header Access-Control-Allow-Origin {$GATEWAY_DOMAIN}
 		header Access-Control-Allow-Methods "GET,POST,OPTIONS,PATCH"
 		header Access-Control-Allow-Headers "Authorization,Content-Type"
 		# header Access-Control-Allow-Credentials true # if cookies need
