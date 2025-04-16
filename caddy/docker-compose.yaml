@@ -11,6 +11,10 @@ services:
       - ./site:/srv
       - caddy_data:/data
       - caddy_config:/config
+    env_file:
+      - .env
+    environment:
+      - GATEWAY_DOMAIN=${GATEWAY_DOMAIN}
     networks:
       - cart-demo
 
