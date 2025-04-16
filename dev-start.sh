@@ -1,9 +1,9 @@
 #!/bin/sh
 
-WORKSPACE_PATH="$(cd ../../ && pwd)"
+WORKSPACE_PATH="$(cd ../ && pwd)"
 echo "WORKSPACE_PATH = $WORKSPACE_PATH"
 
-echo "start traefik"
+echo "start caddy"
 docker-compose up -d
 
 echo "start shop-product-service"
@@ -14,3 +14,6 @@ cd "$WORKSPACE_PATH/cart-service/scripts" && ./dev-start-detach.sh
 
 echo "start user-service"
 cd "$WORKSPACE_PATH/user-service/scripts" && ./dev-start-detach.sh
+
+echo "start payment-service"
+cd "$WORKSPACE_PATH/payment-service/scripts" && ./dev-start-detach.sh

@@ -1,6 +1,6 @@
 #!/bin/sh
 
-WORKSPACE_PATH="$(cd ../../ && pwd)"
+WORKSPACE_PATH="$(cd ../ && pwd)"
 echo "WORKSPACE_PATH = $WORKSPACE_PATH"
 
 echo "stop caddy"

@@ -15,6 +15,7 @@ services:
       - .env
     environment:
       - GATEWAY_DOMAIN=${GATEWAY_DOMAIN}
+      - GATEWAY_DOMAIN_PORT=${GATEWAY_DOMAIN_PORT}
     networks:
       - cart-demo
 
