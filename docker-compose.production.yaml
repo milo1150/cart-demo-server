@@ -10,8 +10,8 @@ services:
       - 80
       - 443
     volumes:
-      # - ./caddy-config:/etc/caddy # because can't mount file to file (CaddyFile) on Coolify
-      - ./Caddyfile:/etc/caddy/Caddyfile
+      - ./caddy-config:/etc/caddy # because can't mount file to file (CaddyFile) on Coolify
+      # - ./Caddyfile:/etc/caddy/Caddyfile
       - ./site:/srv
       - caddy_data:/data
       - caddy_config:/config
