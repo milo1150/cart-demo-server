@@ -14,7 +14,7 @@ services:
       # - ./site:/srv
       - ./cfg:/etc/caddy/
       # - ./caddy.txt:/etc/caddy/Caddyfile
-      - caddy_config_backup:/etc/caddy/
+      # - caddy_config_backup:/etc/caddy/
       - caddy_data:/data
       - caddy_config:/config
     env_file:
@@ -63,7 +63,7 @@ services:
       - cart-demo
 
 volumes:
-  caddy_config_backup:
+  # caddy_config_backup:
   caddy_data:
   caddy_config:
   pgadmin_data:
