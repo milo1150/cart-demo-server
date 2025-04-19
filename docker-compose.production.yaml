@@ -11,10 +11,10 @@ services:
       - 443
     volumes:
       # - .cfg/Caddyfile:/etc/caddy/Caddyfile
-      # - ./config/Caddyfile:/etc/caddy/Caddyfile
       # - ./site:/srv
-      # - ./cfg:/etc/caddy/
-      - ./caddy.txt:/etc/caddy/Caddyfile
+      - ./cfg:/etc/caddy/
+      # - ./caddy.txt:/etc/caddy/Caddyfile
+      - caddy_config_backup:/etc/caddy/
       - caddy_data:/data
       - caddy_config:/config
     env_file:
@@ -63,7 +63,7 @@ services:
       - cart-demo
 
 volumes:
-  cfg:
+  caddy_config_backup:
   caddy_data:
   caddy_config:
   pgadmin_data:
