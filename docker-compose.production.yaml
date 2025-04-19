@@ -13,7 +13,8 @@ services:
       # - .cfg/Caddyfile:/etc/caddy/Caddyfile
       # - ./config/Caddyfile:/etc/caddy/Caddyfile
       # - ./site:/srv
-      - ./cfg:/etc/caddy/
+      # - ./cfg:/etc/caddy/
+      - ./caddy.txt:/etc/caddy/Caddyfile
       - caddy_data:/data
       - caddy_config:/config
     env_file:
