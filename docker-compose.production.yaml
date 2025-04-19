@@ -10,18 +10,16 @@ services:
       - 80
       - 443
     volumes:
-      # - .cfg/Caddyfile:/etc/caddy/Caddyfile
-      # - ./site:/srv
-      - ./cfg:/etc/caddy/
-      # - ./caddy.txt:/etc/caddy/Caddyfile
-      # - caddy_config_backup:/etc/caddy/
       - caddy_data:/data
       - caddy_config:/config
+    build:
+      context: .
+      dockerfile: Dockerfile.caddy
     env_file:
       - .env
     environment:
       - GATEWAY_DOMAIN=${GATEWAY_DOMAIN}
-    # command: ['caddy', 'run', '--config', '/etc/caddy-config/Caddyfile']
+    command: ['caddy', 'run', '--config', '/etc/caddy/Caddyfile']
     networks:
       - cart-demo
 
@@ -63,7 +61,6 @@ services:
       - cart-demo
 
 volumes:
-  # caddy_config_backup:
   caddy_data:
   caddy_config:
   pgadmin_data:
