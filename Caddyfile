@@ -1,11 +1,11 @@
 {
 	debug
 	auto_https off
-	# log {
-	# 	level DEBUG
-	# 	output stdout
-	# 	format console
-	# }
+	log {
+		level DEBUG
+		output stdout
+		format console
+	}
 }
 
 {$GATEWAY_DOMAIN} {
