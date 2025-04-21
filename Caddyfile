@@ -1,6 +1,6 @@
 {
 	debug
-	auto_https off
+	auto_https on_demand_tls
 	log {
 		level DEBUG
 		output stdout
