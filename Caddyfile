@@ -10,6 +10,8 @@
 
 {$GATEWAY_DOMAIN} {
 	log default {
+		level DEBUG
+		hostnames {args[0]}
 		output stdout
 		format json
 	}
