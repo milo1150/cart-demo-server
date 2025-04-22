@@ -3,11 +3,11 @@ services:
     container_name: caddy-gateway
     image: caddy:latest
     restart: unless-stopped
-    ports:
-      - '8080:80'
-    # expose:
-    #   - 80
-    #   - 443
+    # ports:
+    #   - '8080:80'
+    expose:
+      - 80
+      - 443
     volumes:
       - caddy_data:/data
       - caddy_config:/config
