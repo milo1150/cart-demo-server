@@ -49,7 +49,7 @@
 	# http://localhost/nats-monitor/
 	# Becareful in production
 	handle_path /nats-monitor/* {
-		reverse_proxy nats_server:8222
+		reverse_proxy {$NAT_MONITOR_REVERSE_PROXY_ENDPOINT}:{$NAT_MONITOR_REVERSE_PROXY_PORT}
 	}
 
 	# MinIO Web UI: http://localhost/minio-sp/
