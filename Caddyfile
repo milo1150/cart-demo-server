@@ -28,7 +28,7 @@
 
 	# Public routes (no authentication)
 	handle /user/login {
-		reverse_proxy demo-user-service-app-1:1323 {
+		reverse_proxy {$USER_REVERSE_PROXY_ENDPOINT}:{$USER_REVERSE_PROXY_PORT} {
 			# CORS can be handler in proxy and in user-service cors handler, just pick only one solution
 			# ensure CORS headers from upstream get passed back to client
 			# see https://caddyserver.com/docs/caddyfile/directives/reverse_proxy#headers
@@ -64,7 +64,7 @@
 
 	# Protected routes
 	handle {
-		forward_auth demo-user-service-app-1:1323 {
+		forward_auth {$USER_REVERSE_PROXY_ENDPOINT}:{$USER_REVERSE_PROXY_PORT} {
 			uri /user/auth
 			copy_headers Authorization X-User-Name X-User-Email X-User-Id X-User-Role
 		}
@@ -83,7 +83,7 @@
 
 		handle_path /user/* {
 			rewrite * /user{uri}
-			reverse_proxy demo-user-service-app-1:1323
+			reverse_proxy {$USER_REVERSE_PROXY_ENDPOINT}:{$USER_REVERSE_PROXY_PORT}
 		}
 
 		handle_path /payment/* {
