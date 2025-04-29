@@ -54,12 +54,12 @@
 
 	# MinIO Web UI: http://localhost/minio-sp/
 	handle_path /minio-sp/* {
-		reverse_proxy minio-shop-product:9001
+		reverse_proxy {$MINIO_SHOP_PRODUCT_REVERSE_PROXY_ENDPOINT}:{$MINIO_SHOP_PRODUCT_WEB_UI_PORT}
 	}
 
 	# MinIO API 
 	handle_path /minio-sp-api/* {
-		reverse_proxy minio-shop-product:9000
+		reverse_proxy {$MINIO_SHOP_PRODUCT_REVERSE_PROXY_ENDPOINT}:{$MINIO_SHOP_PRODUCT_API_PORT}
 	}
 
 	# Protected routes
@@ -70,13 +70,13 @@
 		}
 
 		handle_path /cart/* {
-			reverse_proxy demo-cart-service-app-1:1323 {
+			reverse_proxy {$CART_REVERSE_PROXY_ENDPOINT}:{$CART_REVERSE_PROXY_PORT} {
 				# header_up -Authorization # if don't need token
 			}
 		}
 
 		handle_path /shop-product/* {
-			reverse_proxy demo-shop-product-service-app-1:1323 {
+			reverse_proxy {$SHOP_PRODUCT_REVERSE_PROXY_ENDPOINT}:{$SHOP_PRODUCT_REVERSE_PROXY_PORT} {
 				# header_up Authorization
 			}
 		}
@@ -87,7 +87,7 @@
 		}
 
 		handle_path /payment/* {
-			reverse_proxy demo-payment-service-app-1:1323
+			reverse_proxy {$PAYMENT_REVERSE_PROXY_ENDPOINT}:{$PAYMENT_REVERSE_PROXY_PORT}
 		}
 
 		# Catch all unmatched routes
