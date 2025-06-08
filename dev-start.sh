@@ -7,13 +7,13 @@ echo "start caddy"
 docker-compose up -d
 
 echo "start user-service"
-cd "$WORKSPACE_PATH/user-service/scripts" && ./dev-start-detach.sh
+cd "$WORKSPACE_PATH/cart-demo-user/scripts" && ./dev-start-detach.sh
 
 echo "start shop-product-service"
-cd "$WORKSPACE_PATH/shop-product-service/scripts" && ./dev-start-detach.sh
+cd "$WORKSPACE_PATH/cart-demo-shop-product/scripts" && ./dev-start-detach.sh
 
 echo "start payment-service"
-cd "$WORKSPACE_PATH/payment-service/scripts" && ./dev-start-detach.sh
+cd "$WORKSPACE_PATH/cart-demo-payment/scripts" && ./dev-start-detach.sh
 
 echo "start cart-service"
-cd "$WORKSPACE_PATH/cart-service/scripts" && ./dev-start-detach.sh
+cd "$WORKSPACE_PATH/cart-demo-cart/scripts" && ./dev-start-detach.sh
